@@ -215,21 +215,18 @@ func (s *KeeperTestSuite) TestGetCurrencyPairMappingGRPC() {
 			{Base: "TEST", Quote: "COIN2"},
 			{Base: "FOO", Quote: "COIN3"},
 		}
-		for _, cp := range currencyPairs {
+		mapping := make(map[uint64]slinkytypes.CurrencyPair)
+		for i, cp := range currencyPairs {
 			s.Require().NoError(s.oracleKeeper.CreateCurrencyPair(s.ctx, cp))
+			mapping[uint64(i)] = cp
 		}
 
-		// manually insert a new CurrencyPair as well
-		s.Require().NoError(s.oracleKeeper.SetPriceForCurrencyPair(s.ctx, slinkytypes.CurrencyPair{
-			Base:  "TEST",
-			Quote: "COIN1",
-		}, types.QuotePrice{Price: sdkmath.NewInt(100)}))
-
 		// query for pairs
-		res, err := qs.GetCurrencyPairMapping(s.ctx, nil)
+		res, err := qs.GetCurrencyPairsWithIDs(s.ctx, nil)
 		s.Require().Nil(err)
-		for idx, cp := range currencyPairs {
-			s.Require().Equal(cp, res.CurrencyPairMapping[uint64(idx)])
+		s.Require().Equal(len(res.Pairs), len(currencyPairs))
+		for _, cp := range res.Pairs {
+			s.Require().Equal(*cp.CurrencyPair, mapping[cp.ID])
 		}
 	})
 }

@@ -4134,7 +4134,7 @@ func (x *GetPricesResponse) GetPrices() []*GetPriceResponse {
 	return nil
 }
 
-// GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
+// GetCurrencyPairMappingRequest is the GetCurrencyPairsWithIDs request type.
 type GetCurrencyPairMappingRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4352,11 +4352,11 @@ var file_slinky_oracle_v1_query_proto_depIdxs = []int32{
 	0,  // 6: slinky.oracle.v1.Query.GetAllCurrencyPairs:input_type -> slinky.oracle.v1.GetAllCurrencyPairsRequest
 	2,  // 7: slinky.oracle.v1.Query.GetPrice:input_type -> slinky.oracle.v1.GetPriceRequest
 	4,  // 8: slinky.oracle.v1.Query.GetPrices:input_type -> slinky.oracle.v1.GetPricesRequest
-	6,  // 9: slinky.oracle.v1.Query.GetCurrencyPairMapping:input_type -> slinky.oracle.v1.GetCurrencyPairMappingRequest
+	6,  // 9: slinky.oracle.v1.Query.GetCurrencyPairsWithIDs:input_type -> slinky.oracle.v1.GetCurrencyPairMappingRequest
 	1,  // 10: slinky.oracle.v1.Query.GetAllCurrencyPairs:output_type -> slinky.oracle.v1.GetAllCurrencyPairsResponse
 	3,  // 11: slinky.oracle.v1.Query.GetPrice:output_type -> slinky.oracle.v1.GetPriceResponse
 	5,  // 12: slinky.oracle.v1.Query.GetPrices:output_type -> slinky.oracle.v1.GetPricesResponse
-	7,  // 13: slinky.oracle.v1.Query.GetCurrencyPairMapping:output_type -> slinky.oracle.v1.GetCurrencyPairMappingResponse
+	7,  // 13: slinky.oracle.v1.Query.GetCurrencyPairsWithIDs:output_type -> slinky.oracle.v1.GetCurrencyPairMappingResponse
 	10, // [10:14] is the sub-list for method output_type
 	6,  // [6:10] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name

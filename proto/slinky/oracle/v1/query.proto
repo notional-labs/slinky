@@ -25,13 +25,13 @@ service Query {
     option (google.api.http).get = "/slinky/oracle/v1/get_prices";
   }
 
-  // Get the mapping of currency pair ID -> currency pair. This is useful for
+  // Get currency pairs with their associated IDs. This is useful for
   // indexers that have access to the ID of a currency pair, but no way to get
   // the underlying currency pair from it.
-  rpc GetCurrencyPairMapping(GetCurrencyPairMappingRequest)
-      returns (GetCurrencyPairMappingResponse) {
+  rpc GetCurrencyPairsWithIDs(GetCurrencyPairsWithIDsRequest)
+      returns (GetCurrencyPairsWithIDsResponse) {
     option (google.api.http).get =
-        "/slinky/oracle/v1/get_currency_pair_mapping";
+        "/slinky/oracle/v1/get_currency_pairs_with_ids";
   }
 }
 
@@ -78,13 +78,21 @@ message GetPricesResponse {
   repeated GetPriceResponse prices = 1 [ (gogoproto.nullable) = false ];
 }
 
-// GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
-message GetCurrencyPairMappingRequest {}
+// GetCurrencyPairsWithIDsRequest is the GetCurrencyPairsWithIDs request type.
+message GetCurrencyPairsWithIDsRequest {}
 
-// GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type.
-message GetCurrencyPairMappingResponse {
-  // currency_pair_mapping is a mapping of the id representing the currency pair
-  // to the currency pair itself.
-  map<uint64, slinky.types.v1.CurrencyPair> currency_pair_mapping = 1
-      [ (gogoproto.nullable) = false ];
+// GetCurrencyPairsWithIDsResponse is the GetCurrencyPairsWithIDs response type.
+message GetCurrencyPairsWithIDsResponse {
+  // currency_pair_with_id is a list of currency pairs with their associated
+  // ID's. note, we cannot use a map<uint64, currency_pair> here as mappings
+  // with uint64 cause problems with CosmJS client generation.
+  repeated CurrencyPairWithID pairs = 1 [ (gogoproto.nullable) = false ];
+}
+
+// CurrencyPairWithID is a currency pair with its associated ID. Note, we need
+// this in place of a mapping as maps with uint64 cause issues with CosmJS code
+// gen.
+message CurrencyPairWithID {
+  slinky.types.v1.CurrencyPair currency_pair = 1;
+  uint64 ID = 2;
 }

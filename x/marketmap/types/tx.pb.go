@@ -31,8 +31,8 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// MsgUpsertMarkets defines a message carrying a payload for performing market upserts (update or
-// create if does not exist) in the x/marketmap module.
+// MsgUpsertMarkets defines a message carrying a payload for performing market
+// upserts (update or create if does not exist) in the x/marketmap module.
 type MsgUpsertMarkets struct {
 	// Authority is the signer of this transaction.  This authority must be
 	// authorized by the module to execute the message.
@@ -89,9 +89,11 @@ func (m *MsgUpsertMarkets) GetMarkets() []Market {
 	return nil
 }
 
-// MsgUpsertMarketsResponse is the response from the UpsertMarkets API in the x/marketmap module.
+// MsgUpsertMarketsResponse is the response from the UpsertMarkets API in the
+// x/marketmap module.
 type MsgUpsertMarketsResponse struct {
-	// UpdatedMarkets is a map between the ticker and whether the market was updated.
+	// UpdatedMarkets is a map between the ticker and whether the market was
+	// updated.
 	MarketUpdates map[string]bool `protobuf:"bytes,1,rep,name=market_updates,json=marketUpdates,proto3" json:"market_updates,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
 }
 
@@ -600,9 +602,9 @@ type MsgClient interface {
 	// RemoveMarketAuthorities defines a method for removing market authorities
 	// from the x/marketmap module. the signer must be the admin.
 	RemoveMarketAuthorities(ctx context.Context, in *MsgRemoveMarketAuthorities, opts ...grpc.CallOption) (*MsgRemoveMarketAuthoritiesResponse, error)
-	// UpsertMarkets wraps both Create / Update markets into a single message. Specifically
-	// if a market does not exist it will be created, otherwise it will be updated. The response
-	// will be a map between ticker -> updated.
+	// UpsertMarkets wraps both Create / Update markets into a single message.
+	// Specifically if a market does not exist it will be created, otherwise it
+	// will be updated. The response will be a map between ticker -> updated.
 	UpsertMarkets(ctx context.Context, in *MsgUpsertMarkets, opts ...grpc.CallOption) (*MsgUpsertMarketsResponse, error)
 }
 
@@ -671,9 +673,9 @@ type MsgServer interface {
 	// RemoveMarketAuthorities defines a method for removing market authorities
 	// from the x/marketmap module. the signer must be the admin.
 	RemoveMarketAuthorities(context.Context, *MsgRemoveMarketAuthorities) (*MsgRemoveMarketAuthoritiesResponse, error)
-	// UpsertMarkets wraps both Create / Update markets into a single message. Specifically
-	// if a market does not exist it will be created, otherwise it will be updated. The response
-	// will be a map between ticker -> updated.
+	// UpsertMarkets wraps both Create / Update markets into a single message.
+	// Specifically if a market does not exist it will be created, otherwise it
+	// will be updated. The response will be a map between ticker -> updated.
 	UpsertMarkets(context.Context, *MsgUpsertMarkets) (*MsgUpsertMarketsResponse, error)
 }
 

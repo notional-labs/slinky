@@ -328,22 +328,22 @@ func (m *GetPricesResponse) GetPrices() []GetPriceResponse {
 	return nil
 }
 
-// GetCurrencyPairMappingRequest is the GetCurrencyPairMapping request type.
-type GetCurrencyPairMappingRequest struct {
+// GetCurrencyPairsWithIDsRequest is the GetCurrencyPairsWithIDs request type.
+type GetCurrencyPairsWithIDsRequest struct {
 }
 
-func (m *GetCurrencyPairMappingRequest) Reset()         { *m = GetCurrencyPairMappingRequest{} }
-func (m *GetCurrencyPairMappingRequest) String() string { return proto.CompactTextString(m) }
-func (*GetCurrencyPairMappingRequest) ProtoMessage()    {}
-func (*GetCurrencyPairMappingRequest) Descriptor() ([]byte, []int) {
+func (m *GetCurrencyPairsWithIDsRequest) Reset()         { *m = GetCurrencyPairsWithIDsRequest{} }
+func (m *GetCurrencyPairsWithIDsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetCurrencyPairsWithIDsRequest) ProtoMessage()    {}
+func (*GetCurrencyPairsWithIDsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ba8e832073f3a7b0, []int{6}
 }
-func (m *GetCurrencyPairMappingRequest) XXX_Unmarshal(b []byte) error {
+func (m *GetCurrencyPairsWithIDsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *GetCurrencyPairMappingRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *GetCurrencyPairsWithIDsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_GetCurrencyPairMappingRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_GetCurrencyPairsWithIDsRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -353,37 +353,38 @@ func (m *GetCurrencyPairMappingRequest) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *GetCurrencyPairMappingRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetCurrencyPairMappingRequest.Merge(m, src)
+func (m *GetCurrencyPairsWithIDsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCurrencyPairsWithIDsRequest.Merge(m, src)
 }
-func (m *GetCurrencyPairMappingRequest) XXX_Size() int {
+func (m *GetCurrencyPairsWithIDsRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *GetCurrencyPairMappingRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetCurrencyPairMappingRequest.DiscardUnknown(m)
+func (m *GetCurrencyPairsWithIDsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCurrencyPairsWithIDsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetCurrencyPairMappingRequest proto.InternalMessageInfo
+var xxx_messageInfo_GetCurrencyPairsWithIDsRequest proto.InternalMessageInfo
 
-// GetCurrencyPairMappingResponse is the GetCurrencyPairMapping response type.
-type GetCurrencyPairMappingResponse struct {
-	// currency_pair_mapping is a mapping of the id representing the currency pair
-	// to the currency pair itself.
-	CurrencyPairMapping map[uint64]types.CurrencyPair `protobuf:"bytes,1,rep,name=currency_pair_mapping,json=currencyPairMapping,proto3" json:"currency_pair_mapping" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+// GetCurrencyPairsWithIDsResponse is the GetCurrencyPairsWithIDs response type.
+type GetCurrencyPairsWithIDsResponse struct {
+	// currency_pair_with_id is a list of currency pairs with their associated
+	// ID's. note, we cannot use a map<uint64, currency_pair> here as mappings
+	// with uint64 cause problems with CosmJS client generation.
+	Pairs []CurrencyPairWithID `protobuf:"bytes,1,rep,name=pairs,proto3" json:"pairs"`
 }
 
-func (m *GetCurrencyPairMappingResponse) Reset()         { *m = GetCurrencyPairMappingResponse{} }
-func (m *GetCurrencyPairMappingResponse) String() string { return proto.CompactTextString(m) }
-func (*GetCurrencyPairMappingResponse) ProtoMessage()    {}
-func (*GetCurrencyPairMappingResponse) Descriptor() ([]byte, []int) {
+func (m *GetCurrencyPairsWithIDsResponse) Reset()         { *m = GetCurrencyPairsWithIDsResponse{} }
+func (m *GetCurrencyPairsWithIDsResponse) String() string { return proto.CompactTextString(m) }
+func (*GetCurrencyPairsWithIDsResponse) ProtoMessage()    {}
+func (*GetCurrencyPairsWithIDsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ba8e832073f3a7b0, []int{7}
 }
-func (m *GetCurrencyPairMappingResponse) XXX_Unmarshal(b []byte) error {
+func (m *GetCurrencyPairsWithIDsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *GetCurrencyPairMappingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *GetCurrencyPairsWithIDsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_GetCurrencyPairMappingResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_GetCurrencyPairsWithIDsResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -393,23 +394,78 @@ func (m *GetCurrencyPairMappingResponse) XXX_Marshal(b []byte, deterministic boo
 		return b[:n], nil
 	}
 }
-func (m *GetCurrencyPairMappingResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetCurrencyPairMappingResponse.Merge(m, src)
+func (m *GetCurrencyPairsWithIDsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetCurrencyPairsWithIDsResponse.Merge(m, src)
 }
-func (m *GetCurrencyPairMappingResponse) XXX_Size() int {
+func (m *GetCurrencyPairsWithIDsResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *GetCurrencyPairMappingResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetCurrencyPairMappingResponse.DiscardUnknown(m)
+func (m *GetCurrencyPairsWithIDsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetCurrencyPairsWithIDsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetCurrencyPairMappingResponse proto.InternalMessageInfo
+var xxx_messageInfo_GetCurrencyPairsWithIDsResponse proto.InternalMessageInfo
 
-func (m *GetCurrencyPairMappingResponse) GetCurrencyPairMapping() map[uint64]types.CurrencyPair {
+func (m *GetCurrencyPairsWithIDsResponse) GetPairs() []CurrencyPairWithID {
 	if m != nil {
-		return m.CurrencyPairMapping
+		return m.Pairs
 	}
 	return nil
+}
+
+// CurrencyPairWithID is a currency pair with its associated ID. Note, we need
+// this in place of a mapping as maps with uint64 cause issues with CosmJS code
+// gen.
+type CurrencyPairWithID struct {
+	CurrencyPair *types.CurrencyPair `protobuf:"bytes,1,opt,name=currency_pair,json=currencyPair,proto3" json:"currency_pair,omitempty"`
+	ID           uint64              `protobuf:"varint,2,opt,name=ID,proto3" json:"ID,omitempty"`
+}
+
+func (m *CurrencyPairWithID) Reset()         { *m = CurrencyPairWithID{} }
+func (m *CurrencyPairWithID) String() string { return proto.CompactTextString(m) }
+func (*CurrencyPairWithID) ProtoMessage()    {}
+func (*CurrencyPairWithID) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ba8e832073f3a7b0, []int{8}
+}
+func (m *CurrencyPairWithID) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CurrencyPairWithID) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CurrencyPairWithID.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CurrencyPairWithID) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CurrencyPairWithID.Merge(m, src)
+}
+func (m *CurrencyPairWithID) XXX_Size() int {
+	return m.Size()
+}
+func (m *CurrencyPairWithID) XXX_DiscardUnknown() {
+	xxx_messageInfo_CurrencyPairWithID.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CurrencyPairWithID proto.InternalMessageInfo
+
+func (m *CurrencyPairWithID) GetCurrencyPair() *types.CurrencyPair {
+	if m != nil {
+		return m.CurrencyPair
+	}
+	return nil
+}
+
+func (m *CurrencyPairWithID) GetID() uint64 {
+	if m != nil {
+		return m.ID
+	}
+	return 0
 }
 
 func init() {
@@ -419,56 +475,55 @@ func init() {
 	proto.RegisterType((*GetPriceResponse)(nil), "slinky.oracle.v1.GetPriceResponse")
 	proto.RegisterType((*GetPricesRequest)(nil), "slinky.oracle.v1.GetPricesRequest")
 	proto.RegisterType((*GetPricesResponse)(nil), "slinky.oracle.v1.GetPricesResponse")
-	proto.RegisterType((*GetCurrencyPairMappingRequest)(nil), "slinky.oracle.v1.GetCurrencyPairMappingRequest")
-	proto.RegisterType((*GetCurrencyPairMappingResponse)(nil), "slinky.oracle.v1.GetCurrencyPairMappingResponse")
-	proto.RegisterMapType((map[uint64]types.CurrencyPair)(nil), "slinky.oracle.v1.GetCurrencyPairMappingResponse.CurrencyPairMappingEntry")
+	proto.RegisterType((*GetCurrencyPairsWithIDsRequest)(nil), "slinky.oracle.v1.GetCurrencyPairsWithIDsRequest")
+	proto.RegisterType((*GetCurrencyPairsWithIDsResponse)(nil), "slinky.oracle.v1.GetCurrencyPairsWithIDsResponse")
+	proto.RegisterType((*CurrencyPairWithID)(nil), "slinky.oracle.v1.CurrencyPairWithID")
 }
 
 func init() { proto.RegisterFile("slinky/oracle/v1/query.proto", fileDescriptor_ba8e832073f3a7b0) }
 
 var fileDescriptor_ba8e832073f3a7b0 = []byte{
-	// 651 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xcf, 0x4f, 0xd4, 0x40,
-	0x14, 0xde, 0x59, 0x76, 0x09, 0x3c, 0xe5, 0xd7, 0x80, 0x66, 0xb3, 0x2c, 0x05, 0xba, 0x1e, 0x40,
-	0xa5, 0x15, 0xb8, 0x10, 0x0f, 0x46, 0x21, 0x06, 0x31, 0x31, 0x81, 0x26, 0x5e, 0xf4, 0xb0, 0x29,
-	0xdd, 0x49, 0x9d, 0x6c, 0xb7, 0x53, 0x3a, 0xb3, 0x1b, 0xeb, 0x51, 0xcf, 0x1a, 0x13, 0xcf, 0xfe,
-	0x0f, 0xfe, 0x19, 0x9c, 0x0c, 0x89, 0x17, 0x4f, 0xc6, 0x80, 0x7f, 0x88, 0xd9, 0x99, 0x29, 0x74,
-	0xa1, 0xac, 0xeb, 0xad, 0xed, 0xf7, 0xde, 0xf7, 0xbe, 0xf7, 0xde, 0xf7, 0x0a, 0x35, 0x1e, 0xd0,
-	0xb0, 0x95, 0xd8, 0x2c, 0x76, 0xbd, 0x80, 0xd8, 0xdd, 0x75, 0xfb, 0xa8, 0x43, 0xe2, 0xc4, 0x8a,
-	0x62, 0x26, 0x18, 0x9e, 0x56, 0xa8, 0xa5, 0x50, 0xab, 0xbb, 0x5e, 0x9d, 0xf3, 0x99, 0xcf, 0x24,
-	0x68, 0xf7, 0x9e, 0x54, 0x5c, 0xb5, 0xe6, 0x33, 0xe6, 0x07, 0xc4, 0x76, 0x23, 0x6a, 0xbb, 0x61,
-	0xc8, 0x84, 0x2b, 0x28, 0x0b, 0xb9, 0x46, 0x8d, 0x2b, 0x35, 0x7c, 0x12, 0x12, 0x4e, 0x53, 0xbc,
-	0xae, 0x71, 0x91, 0x44, 0x84, 0xf7, 0x60, 0xaf, 0x13, 0xc7, 0x24, 0xf4, 0x92, 0x46, 0xe4, 0xd2,
-	0x58, 0x05, 0x99, 0x35, 0xa8, 0xee, 0x12, 0xf1, 0x24, 0x08, 0x76, 0x34, 0xb8, 0xef, 0xd2, 0x98,
-	0x3b, 0xe4, 0xa8, 0x43, 0xb8, 0x30, 0x29, 0xcc, 0xe7, 0xa2, 0x3c, 0x62, 0x21, 0x27, 0xf8, 0x39,
-	0x4c, 0xf6, 0x71, 0xf2, 0x0a, 0x5a, 0x1a, 0x59, 0xb9, 0xb1, 0xb1, 0x60, 0xe9, 0x06, 0x65, 0x69,
-	0xab, 0xbb, 0x6e, 0x65, 0xf3, 0xb7, 0x4b, 0xc7, 0xbf, 0x16, 0x0b, 0xce, 0x84, 0x97, 0xe5, 0x34,
-	0x5f, 0xc3, 0xd4, 0x2e, 0x11, 0xfb, 0x31, 0xf5, 0x88, 0xae, 0x8e, 0x9f, 0xc1, 0x44, 0x1f, 0x7d,
-	0x05, 0x2d, 0xa1, 0x61, 0xd9, 0x6f, 0x66, 0xd9, 0xcd, 0x4f, 0x08, 0xa6, 0x2f, 0xd8, 0xb5, 0xfa,
-	0x2d, 0x28, 0x47, 0xbd, 0x0f, 0x9a, 0xb6, 0x66, 0x5d, 0xde, 0x8a, 0x75, 0xd0, 0x61, 0x82, 0xc8,
-	0x24, 0xc9, 0x8a, 0x1c, 0x95, 0x80, 0xe7, 0xa0, 0x1c, 0xb2, 0xd0, 0x23, 0x95, 0xe2, 0x12, 0x5a,
-	0x29, 0x39, 0xea, 0x05, 0x57, 0x61, 0xac, 0x49, 0x3c, 0xda, 0x76, 0x03, 0x5e, 0x19, 0x91, 0xc0,
-	0xf9, 0x3b, 0x9e, 0x84, 0x22, 0x6d, 0x56, 0x4a, 0xf2, 0x6b, 0x91, 0x36, 0xcd, 0x47, 0x17, 0x7a,
-	0xd2, 0x61, 0xe3, 0xbb, 0x30, 0xd3, 0xd7, 0x6e, 0x83, 0x36, 0xd5, 0x40, 0xc7, 0x9d, 0xa9, 0x6c,
-	0x37, 0x7b, 0x4d, 0x6e, 0xbe, 0x84, 0x99, 0x4c, 0xbe, 0x6e, 0xe8, 0x31, 0x8c, 0x4a, 0x7d, 0xe9,
-	0x1a, 0xcc, 0xab, 0x1d, 0x5d, 0x1e, 0x82, 0x9e, 0x96, 0xce, 0x33, 0x17, 0x61, 0x61, 0x97, 0x88,
-	0xec, 0x38, 0x5f, 0xb8, 0x51, 0x44, 0x43, 0x3f, 0x35, 0xc4, 0xc7, 0x22, 0x18, 0xd7, 0x45, 0x68,
-	0x15, 0x1f, 0x10, 0xdc, 0xea, 0xef, 0xa3, 0xad, 0x22, 0xb4, 0xaa, 0xbd, 0x5c, 0x55, 0x03, 0x18,
-	0xad, 0x1c, 0xec, 0x69, 0x28, 0xe2, 0x44, 0x8b, 0x9f, 0xf5, 0xae, 0xe2, 0x55, 0x02, 0x95, 0xeb,
-	0xd2, 0xf0, 0x34, 0x8c, 0xb4, 0x48, 0x22, 0xd7, 0x5e, 0x72, 0x7a, 0x8f, 0x78, 0x13, 0xca, 0x5d,
-	0x37, 0xe8, 0xa8, 0x85, 0xfe, 0xcb, 0x61, 0x8e, 0x8a, 0x7d, 0x58, 0xdc, 0x42, 0x1b, 0xdf, 0x4b,
-	0x50, 0x3e, 0xe8, 0x5d, 0x36, 0xfe, 0x8a, 0x60, 0x36, 0xe7, 0x56, 0xf0, 0xfd, 0xdc, 0x76, 0xaf,
-	0x39, 0xb8, 0xea, 0xda, 0x90, 0xd1, 0x6a, 0x32, 0xe6, 0xea, 0xfb, 0x1f, 0x7f, 0xbe, 0x14, 0xeb,
-	0x78, 0xd9, 0xce, 0xf9, 0x17, 0x88, 0x86, 0x1b, 0x04, 0x0d, 0x41, 0xbd, 0x16, 0x89, 0x39, 0xee,
-	0xc2, 0x58, 0xba, 0x7c, 0xbc, 0x3c, 0xc8, 0x18, 0x4a, 0xc8, 0x10, 0xde, 0x31, 0xeb, 0xb2, 0xfa,
-	0x02, 0x9e, 0xcf, 0xaf, 0xae, 0x6e, 0xe5, 0x1d, 0x8c, 0x9f, 0x3b, 0x15, 0x0f, 0x60, 0x3d, 0x1f,
-	0x41, 0x7d, 0x60, 0x8c, 0x2e, 0x7d, 0x47, 0x96, 0x36, 0x70, 0x6d, 0x40, 0x69, 0x8e, 0xbf, 0x21,
-	0xb8, 0x9d, 0xef, 0x2d, 0x6c, 0x0f, 0xef, 0x42, 0x25, 0xeb, 0xc1, 0xff, 0xda, 0xd6, 0xdc, 0x94,
-	0x1a, 0xd7, 0xf0, 0xbd, 0x7c, 0x8d, 0xb9, 0x37, 0xb2, 0xbd, 0x73, 0x7c, 0x6a, 0xa0, 0x93, 0x53,
-	0x03, 0xfd, 0x3e, 0x35, 0xd0, 0xe7, 0x33, 0xa3, 0x70, 0x72, 0x66, 0x14, 0x7e, 0x9e, 0x19, 0x85,
-	0x57, 0xab, 0x3e, 0x15, 0x6f, 0x3a, 0x87, 0x96, 0xc7, 0xda, 0x36, 0x6f, 0xd1, 0x68, 0xad, 0x4d,
-	0xba, 0x29, 0xf3, 0xdb, 0x94, 0x5b, 0x1a, 0xf6, 0x70, 0x54, 0xfe, 0xdb, 0x37, 0xff, 0x06, 0x00,
-	0x00, 0xff, 0xff, 0x47, 0x86, 0x2b, 0x85, 0x86, 0x06, 0x00, 0x00,
+	// 632 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0xcd, 0x6e, 0xd3, 0x4c,
+	0x14, 0x8d, 0xd3, 0xa4, 0x6a, 0xe7, 0xfb, 0xfa, 0x37, 0x54, 0x22, 0x72, 0x53, 0x37, 0x75, 0xba,
+	0x68, 0x11, 0xb5, 0x49, 0x11, 0x12, 0x2b, 0x04, 0x69, 0xa4, 0x10, 0x56, 0x6d, 0x24, 0x84, 0x04,
+	0x8b, 0xc8, 0x75, 0x46, 0xce, 0x28, 0x8e, 0xc7, 0xf5, 0x4c, 0x02, 0x61, 0xc9, 0x03, 0x20, 0x24,
+	0xd6, 0x3c, 0x06, 0xef, 0xd0, 0x65, 0xa5, 0x6e, 0x58, 0x21, 0x94, 0xf0, 0x20, 0xc8, 0x33, 0xe3,
+	0xd4, 0x6e, 0x9c, 0x28, 0xb0, 0xb3, 0x7d, 0xee, 0x3d, 0xe7, 0xcc, 0xbd, 0x67, 0x0c, 0x8a, 0xd4,
+	0xc5, 0x5e, 0x77, 0x68, 0x92, 0xc0, 0xb2, 0x5d, 0x64, 0x0e, 0x2a, 0xe6, 0x65, 0x1f, 0x05, 0x43,
+	0xc3, 0x0f, 0x08, 0x23, 0x70, 0x53, 0xa0, 0x86, 0x40, 0x8d, 0x41, 0x45, 0xdd, 0x76, 0x88, 0x43,
+	0x38, 0x68, 0x86, 0x4f, 0xa2, 0x4e, 0x2d, 0x3a, 0x84, 0x38, 0x2e, 0x32, 0x2d, 0x1f, 0x9b, 0x96,
+	0xe7, 0x11, 0x66, 0x31, 0x4c, 0x3c, 0x2a, 0x51, 0x6d, 0x4a, 0xc3, 0x41, 0x1e, 0xa2, 0x38, 0xc2,
+	0xcb, 0x12, 0x67, 0x43, 0x1f, 0xd1, 0x10, 0xb6, 0xfb, 0x41, 0x80, 0x3c, 0x7b, 0xd8, 0xf2, 0x2d,
+	0x1c, 0x88, 0x22, 0xbd, 0x08, 0xd4, 0x3a, 0x62, 0x2f, 0x5c, 0xf7, 0x54, 0x82, 0x67, 0x16, 0x0e,
+	0x68, 0x13, 0x5d, 0xf6, 0x11, 0x65, 0x3a, 0x06, 0x3b, 0xa9, 0x28, 0xf5, 0x89, 0x47, 0x11, 0x7c,
+	0x05, 0xd6, 0x13, 0x9c, 0xb4, 0xa0, 0x94, 0x96, 0x0e, 0xff, 0x3b, 0xd9, 0x35, 0xe4, 0x01, 0xb9,
+	0xb4, 0x31, 0xa8, 0x18, 0xf1, 0xfe, 0x6a, 0xee, 0xea, 0xe7, 0x5e, 0xa6, 0xb9, 0x66, 0xc7, 0x39,
+	0xf5, 0x77, 0x60, 0xa3, 0x8e, 0xd8, 0x59, 0x80, 0x6d, 0x24, 0xd5, 0xe1, 0x4b, 0xb0, 0x96, 0xa0,
+	0x2f, 0x28, 0x25, 0x65, 0x51, 0xf6, 0xff, 0xe3, 0xec, 0xfa, 0x67, 0x05, 0x6c, 0xde, 0xb2, 0x4b,
+	0xf7, 0x4f, 0x41, 0xde, 0x0f, 0x3f, 0x48, 0xda, 0xa2, 0x71, 0x77, 0x2b, 0xc6, 0x79, 0x9f, 0x30,
+	0xc4, 0x9b, 0x38, 0xab, 0xd2, 0x14, 0x0d, 0x70, 0x1b, 0xe4, 0x3d, 0xe2, 0xd9, 0xa8, 0x90, 0x2d,
+	0x29, 0x87, 0xb9, 0xa6, 0x78, 0x81, 0x2a, 0x58, 0x69, 0x23, 0x1b, 0xf7, 0x2c, 0x97, 0x16, 0x96,
+	0x38, 0x30, 0x79, 0x87, 0xeb, 0x20, 0x8b, 0xdb, 0x85, 0x1c, 0xff, 0x9a, 0xc5, 0x6d, 0xfd, 0xd9,
+	0xad, 0x9f, 0x68, 0xd8, 0xf0, 0x01, 0xd8, 0x4a, 0x1c, 0xb7, 0x85, 0xdb, 0x62, 0xa0, 0xab, 0xcd,
+	0x8d, 0xf8, 0x69, 0x1a, 0x6d, 0xaa, 0xbf, 0x06, 0x5b, 0xb1, 0x7e, 0x79, 0xa0, 0xe7, 0x60, 0x99,
+	0xfb, 0x8b, 0xd6, 0xa0, 0x4f, 0x9f, 0xe8, 0xee, 0x10, 0xe4, 0xb4, 0x64, 0x9f, 0x5e, 0x02, 0x5a,
+	0x1d, 0xb1, 0xc4, 0xb2, 0xdf, 0x60, 0xd6, 0x69, 0xd4, 0x26, 0x89, 0xb0, 0xc1, 0xde, 0xcc, 0x8a,
+	0x89, 0x8d, 0x7c, 0x3c, 0x0c, 0x07, 0xd3, 0x2e, 0xe2, 0xed, 0xa2, 0x5b, 0xfa, 0x10, 0x8d, 0x7a,
+	0x07, 0xc0, 0xe9, 0x12, 0x58, 0xfd, 0x97, 0x38, 0x24, 0x83, 0x10, 0xee, 0xa1, 0x51, 0x93, 0x6b,
+	0xcb, 0x36, 0x6a, 0x27, 0x37, 0x39, 0x90, 0x3f, 0x0f, 0x6f, 0x26, 0xfc, 0xa6, 0x80, 0x7b, 0x29,
+	0x59, 0x87, 0x0f, 0x53, 0x87, 0x38, 0xe3, 0xc2, 0xa8, 0xc7, 0x0b, 0x56, 0x8b, 0x51, 0xe9, 0x47,
+	0x9f, 0x6e, 0x7e, 0x7f, 0xcd, 0x96, 0xe1, 0xbe, 0x99, 0x72, 0x97, 0x59, 0xcb, 0x72, 0xdd, 0x16,
+	0xc3, 0x76, 0x17, 0x05, 0x14, 0x0e, 0xc0, 0x4a, 0xb4, 0x3c, 0xb8, 0x3f, 0x6f, 0xb1, 0xc2, 0xc8,
+	0x02, 0xbb, 0xd7, 0xcb, 0x5c, 0x7d, 0x17, 0xee, 0xa4, 0xab, 0x8b, 0xac, 0x7f, 0x04, 0xab, 0x93,
+	0xa4, 0xc1, 0x39, 0xac, 0x93, 0x11, 0x94, 0xe7, 0xd6, 0x48, 0xe9, 0x03, 0x2e, 0xad, 0xc1, 0xe2,
+	0x1c, 0x69, 0x0a, 0xbf, 0x2b, 0xe0, 0xfe, 0x8c, 0xb4, 0xc1, 0x47, 0xa9, 0x32, 0x73, 0xa2, 0xab,
+	0x56, 0xfe, 0xa2, 0x43, 0xda, 0x7c, 0xc2, 0x6d, 0x9a, 0xf0, 0x38, 0xdd, 0x66, 0xf2, 0xe7, 0xd7,
+	0x7a, 0x8f, 0x59, 0x27, 0xbc, 0xb4, 0xd5, 0xd3, 0xab, 0x91, 0xa6, 0x5c, 0x8f, 0x34, 0xe5, 0xd7,
+	0x48, 0x53, 0xbe, 0x8c, 0xb5, 0xcc, 0xf5, 0x58, 0xcb, 0xfc, 0x18, 0x6b, 0x99, 0xb7, 0x47, 0x0e,
+	0x66, 0x9d, 0xfe, 0x85, 0x61, 0x93, 0x9e, 0x49, 0xbb, 0xd8, 0x3f, 0xee, 0xa1, 0x41, 0xc4, 0xfd,
+	0x21, 0x62, 0xe7, 0x41, 0xbe, 0x58, 0xe6, 0x3f, 0xe8, 0xc7, 0x7f, 0x02, 0x00, 0x00, 0xff, 0xff,
+	0xc2, 0xcb, 0x32, 0xd7, 0x4b, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -489,10 +544,10 @@ type QueryClient interface {
 	// that CurrencyPair.
 	GetPrice(ctx context.Context, in *GetPriceRequest, opts ...grpc.CallOption) (*GetPriceResponse, error)
 	GetPrices(ctx context.Context, in *GetPricesRequest, opts ...grpc.CallOption) (*GetPricesResponse, error)
-	// Get the mapping of currency pair ID -> currency pair. This is useful for
+	// Get currency pairs with their associated IDs. This is useful for
 	// indexers that have access to the ID of a currency pair, but no way to get
 	// the underlying currency pair from it.
-	GetCurrencyPairMapping(ctx context.Context, in *GetCurrencyPairMappingRequest, opts ...grpc.CallOption) (*GetCurrencyPairMappingResponse, error)
+	GetCurrencyPairsWithIDs(ctx context.Context, in *GetCurrencyPairsWithIDsRequest, opts ...grpc.CallOption) (*GetCurrencyPairsWithIDsResponse, error)
 }
 
 type queryClient struct {
@@ -530,9 +585,9 @@ func (c *queryClient) GetPrices(ctx context.Context, in *GetPricesRequest, opts 
 	return out, nil
 }
 
-func (c *queryClient) GetCurrencyPairMapping(ctx context.Context, in *GetCurrencyPairMappingRequest, opts ...grpc.CallOption) (*GetCurrencyPairMappingResponse, error) {
-	out := new(GetCurrencyPairMappingResponse)
-	err := c.cc.Invoke(ctx, "/slinky.oracle.v1.Query/GetCurrencyPairMapping", in, out, opts...)
+func (c *queryClient) GetCurrencyPairsWithIDs(ctx context.Context, in *GetCurrencyPairsWithIDsRequest, opts ...grpc.CallOption) (*GetCurrencyPairsWithIDsResponse, error) {
+	out := new(GetCurrencyPairsWithIDsResponse)
+	err := c.cc.Invoke(ctx, "/slinky.oracle.v1.Query/GetCurrencyPairsWithIDs", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -547,10 +602,10 @@ type QueryServer interface {
 	// that CurrencyPair.
 	GetPrice(context.Context, *GetPriceRequest) (*GetPriceResponse, error)
 	GetPrices(context.Context, *GetPricesRequest) (*GetPricesResponse, error)
-	// Get the mapping of currency pair ID -> currency pair. This is useful for
+	// Get currency pairs with their associated IDs. This is useful for
 	// indexers that have access to the ID of a currency pair, but no way to get
 	// the underlying currency pair from it.
-	GetCurrencyPairMapping(context.Context, *GetCurrencyPairMappingRequest) (*GetCurrencyPairMappingResponse, error)
+	GetCurrencyPairsWithIDs(context.Context, *GetCurrencyPairsWithIDsRequest) (*GetCurrencyPairsWithIDsResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -566,8 +621,8 @@ func (*UnimplementedQueryServer) GetPrice(ctx context.Context, req *GetPriceRequ
 func (*UnimplementedQueryServer) GetPrices(ctx context.Context, req *GetPricesRequest) (*GetPricesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPrices not implemented")
 }
-func (*UnimplementedQueryServer) GetCurrencyPairMapping(ctx context.Context, req *GetCurrencyPairMappingRequest) (*GetCurrencyPairMappingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCurrencyPairMapping not implemented")
+func (*UnimplementedQueryServer) GetCurrencyPairsWithIDs(ctx context.Context, req *GetCurrencyPairsWithIDsRequest) (*GetCurrencyPairsWithIDsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrencyPairsWithIDs not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -628,20 +683,20 @@ func _Query_GetPrices_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_GetCurrencyPairMapping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCurrencyPairMappingRequest)
+func _Query_GetCurrencyPairsWithIDs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCurrencyPairsWithIDsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).GetCurrencyPairMapping(ctx, in)
+		return srv.(QueryServer).GetCurrencyPairsWithIDs(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/slinky.oracle.v1.Query/GetCurrencyPairMapping",
+		FullMethod: "/slinky.oracle.v1.Query/GetCurrencyPairsWithIDs",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).GetCurrencyPairMapping(ctx, req.(*GetCurrencyPairMappingRequest))
+		return srv.(QueryServer).GetCurrencyPairsWithIDs(ctx, req.(*GetCurrencyPairsWithIDsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -663,8 +718,8 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_GetPrices_Handler,
 		},
 		{
-			MethodName: "GetCurrencyPairMapping",
-			Handler:    _Query_GetCurrencyPairMapping_Handler,
+			MethodName: "GetCurrencyPairsWithIDs",
+			Handler:    _Query_GetCurrencyPairsWithIDs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -883,7 +938,7 @@ func (m *GetPricesResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *GetCurrencyPairMappingRequest) Marshal() (dAtA []byte, err error) {
+func (m *GetCurrencyPairsWithIDsRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -893,12 +948,12 @@ func (m *GetCurrencyPairMappingRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *GetCurrencyPairMappingRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *GetCurrencyPairsWithIDsRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *GetCurrencyPairMappingRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *GetCurrencyPairsWithIDsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -906,7 +961,7 @@ func (m *GetCurrencyPairMappingRequest) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
-func (m *GetCurrencyPairMappingResponse) Marshal() (dAtA []byte, err error) {
+func (m *GetCurrencyPairsWithIDsResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -916,22 +971,20 @@ func (m *GetCurrencyPairMappingResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *GetCurrencyPairMappingResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *GetCurrencyPairsWithIDsResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *GetCurrencyPairMappingResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *GetCurrencyPairsWithIDsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.CurrencyPairMapping) > 0 {
-		for k := range m.CurrencyPairMapping {
-			v := m.CurrencyPairMapping[k]
-			baseI := i
+	if len(m.Pairs) > 0 {
+		for iNdEx := len(m.Pairs) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := (&v).MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.Pairs[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -939,14 +992,48 @@ func (m *GetCurrencyPairMappingResponse) MarshalToSizedBuffer(dAtA []byte) (int,
 				i = encodeVarintQuery(dAtA, i, uint64(size))
 			}
 			i--
-			dAtA[i] = 0x12
-			i = encodeVarintQuery(dAtA, i, uint64(k))
-			i--
-			dAtA[i] = 0x8
-			i = encodeVarintQuery(dAtA, i, uint64(baseI-i))
-			i--
 			dAtA[i] = 0xa
 		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CurrencyPairWithID) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CurrencyPairWithID) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CurrencyPairWithID) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ID != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.ID))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.CurrencyPair != nil {
+		{
+			size, err := m.CurrencyPair.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -1049,7 +1136,7 @@ func (m *GetPricesResponse) Size() (n int) {
 	return n
 }
 
-func (m *GetCurrencyPairMappingRequest) Size() (n int) {
+func (m *GetCurrencyPairsWithIDsRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1058,20 +1145,33 @@ func (m *GetCurrencyPairMappingRequest) Size() (n int) {
 	return n
 }
 
-func (m *GetCurrencyPairMappingResponse) Size() (n int) {
+func (m *GetCurrencyPairsWithIDsResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if len(m.CurrencyPairMapping) > 0 {
-		for k, v := range m.CurrencyPairMapping {
-			_ = k
-			_ = v
-			l = v.Size()
-			mapEntrySize := 1 + sovQuery(uint64(k)) + 1 + l + sovQuery(uint64(l))
-			n += mapEntrySize + 1 + sovQuery(uint64(mapEntrySize))
+	if len(m.Pairs) > 0 {
+		for _, e := range m.Pairs {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *CurrencyPairWithID) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CurrencyPair != nil {
+		l = m.CurrencyPair.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	if m.ID != 0 {
+		n += 1 + sovQuery(uint64(m.ID))
 	}
 	return n
 }
@@ -1608,7 +1708,7 @@ func (m *GetPricesResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *GetCurrencyPairMappingRequest) Unmarshal(dAtA []byte) error {
+func (m *GetCurrencyPairsWithIDsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1631,10 +1731,10 @@ func (m *GetCurrencyPairMappingRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: GetCurrencyPairMappingRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: GetCurrencyPairsWithIDsRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetCurrencyPairMappingRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: GetCurrencyPairsWithIDsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1658,7 +1758,7 @@ func (m *GetCurrencyPairMappingRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *GetCurrencyPairMappingResponse) Unmarshal(dAtA []byte) error {
+func (m *GetCurrencyPairsWithIDsResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1681,15 +1781,15 @@ func (m *GetCurrencyPairMappingResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: GetCurrencyPairMappingResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: GetCurrencyPairsWithIDsResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetCurrencyPairMappingResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: GetCurrencyPairsWithIDsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CurrencyPairMapping", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Pairs", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1716,92 +1816,116 @@ func (m *GetCurrencyPairMappingResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.CurrencyPairMapping == nil {
-				m.CurrencyPairMapping = make(map[uint64]types.CurrencyPair)
+			m.Pairs = append(m.Pairs, CurrencyPairWithID{})
+			if err := m.Pairs[len(m.Pairs)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
 			}
-			var mapkey uint64
-			mapvalue := &types.CurrencyPair{}
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowQuery
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowQuery
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapkey |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-				} else if fieldNum == 2 {
-					var mapmsglen int
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowQuery
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapmsglen |= int(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					if mapmsglen < 0 {
-						return ErrInvalidLengthQuery
-					}
-					postmsgIndex := iNdEx + mapmsglen
-					if postmsgIndex < 0 {
-						return ErrInvalidLengthQuery
-					}
-					if postmsgIndex > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = &types.CurrencyPair{}
-					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
-						return err
-					}
-					iNdEx = postmsgIndex
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipQuery(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if (skippy < 0) || (iNdEx+skippy) < 0 {
-						return ErrInvalidLengthQuery
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.CurrencyPairMapping[mapkey] = *mapvalue
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CurrencyPairWithID) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CurrencyPairWithID: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CurrencyPairWithID: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CurrencyPair", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.CurrencyPair == nil {
+				m.CurrencyPair = &types.CurrencyPair{}
+			}
+			if err := m.CurrencyPair.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ID", wireType)
+			}
+			m.ID = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ID |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuery(dAtA[iNdEx:])

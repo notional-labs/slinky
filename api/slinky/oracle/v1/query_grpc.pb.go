@@ -22,7 +22,7 @@ const (
 	Query_GetAllCurrencyPairs_FullMethodName    = "/slinky.oracle.v1.Query/GetAllCurrencyPairs"
 	Query_GetPrice_FullMethodName               = "/slinky.oracle.v1.Query/GetPrice"
 	Query_GetPrices_FullMethodName              = "/slinky.oracle.v1.Query/GetPrices"
-	Query_GetCurrencyPairMapping_FullMethodName = "/slinky.oracle.v1.Query/GetCurrencyPairMapping"
+	Query_GetCurrencyPairMapping_FullMethodName = "/slinky.oracle.v1.Query/GetCurrencyPairsWithIDs"
 )
 
 // QueryClient is the client API for Query service.
@@ -124,7 +124,7 @@ func (UnimplementedQueryServer) GetPrices(context.Context, *GetPricesRequest) (*
 	return nil, status.Errorf(codes.Unimplemented, "method GetPrices not implemented")
 }
 func (UnimplementedQueryServer) GetCurrencyPairMapping(context.Context, *GetCurrencyPairMappingRequest) (*GetCurrencyPairMappingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCurrencyPairMapping not implemented")
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrencyPairsWithIDs not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -231,7 +231,7 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Query_GetPrices_Handler,
 		},
 		{
-			MethodName: "GetCurrencyPairMapping",
+			MethodName: "GetCurrencyPairsWithIDs",
 			Handler:    _Query_GetCurrencyPairMapping_Handler,
 		},
 	},
